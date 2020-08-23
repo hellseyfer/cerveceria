@@ -1,0 +1,908 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CerveceriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Botellas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pet" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="costo_fabrica" Type="int" Nullable="false" />
+          <Property Name="fk_cant_palet" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Cerveceria.dbo.Cerv_ins_varios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Cerv_ins_varios">
+          <Key>
+            <PropertyRef Name="fk_cerveza" />
+            <PropertyRef Name="fk_ins_varios" />
+          </Key>
+          <Property Name="fk_cerveza" Type="int" Nullable="false" />
+          <Property Name="fk_ins_varios" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cerv_lupulos">
+          <Key>
+            <PropertyRef Name="fk_cerveza" />
+            <PropertyRef Name="fk_lupulo" />
+          </Key>
+          <Property Name="fk_cerveza" Type="int" Nullable="false" />
+          <Property Name="fk_lupulo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cerv_Maltas">
+          <Key>
+            <PropertyRef Name="fk_cerveza" />
+            <PropertyRef Name="fk_malta" />
+          </Key>
+          <Property Name="fk_cerveza" Type="int" Nullable="false" />
+          <Property Name="fk_malta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cervezas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="fk_levadura" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomyap" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="telefono" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Detalles_pedidos">
+          <Key>
+            <PropertyRef Name="fk_pedido" />
+            <PropertyRef Name="fk_cerveza" />
+          </Key>
+          <Property Name="fk_pedido" Type="int" Nullable="false" />
+          <Property Name="fk_cerveza" Type="int" Nullable="false" />
+          <Property Name="precio_unidad" Type="float" Nullable="false" />
+          <Property Name="descuento" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="costo" Type="float" Nullable="false" />
+          <Property Name="fk_botella" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gastos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_ini" Type="date" Nullable="false" />
+          <Property Name="esmensual" Type="bit" Nullable="false" />
+          <Property Name="monto" Type="float" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" />
+          <Property Name="fk_nombre" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gastos_nombres">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ins_varios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="precio_kg" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Levaduras">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_kg" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lupulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="precio_kg" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maltas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descrip" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="precio_kg" Type="float" Nullable="false" />
+          <Property Name="precio_bolsa" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Palets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nro_botellas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_pedido" Type="date" Nullable="false" />
+          <Property Name="fecha_envio" Type="date" Nullable="false" />
+          <Property Name="forma_envio" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="cargo_total" Type="float" Nullable="false" />
+          <Property Name="direccion_dest" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fk_cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planchas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dimension" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="costo" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="Botellas_fk_cant_palet-Palets_id">
+          <End Role="Palets" Type="Self.Palets" Multiplicity="1" />
+          <End Role="Botellas" Type="Self.Botellas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palets">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Botellas">
+              <PropertyRef Name="fk_cant_palet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_ins_varios_fk_cerveza-Cervezas_id">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="1" />
+          <End Role="Cerv_ins_varios" Type="Self.Cerv_ins_varios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cervezas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_ins_varios">
+              <PropertyRef Name="fk_cerveza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_ins_varios_fk_ins_varios-Ins_varios_id">
+          <End Role="Ins_varios" Type="Self.Ins_varios" Multiplicity="1" />
+          <End Role="Cerv_ins_varios" Type="Self.Cerv_ins_varios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ins_varios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_ins_varios">
+              <PropertyRef Name="fk_ins_varios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_lupulos_fk_cerveza-Cervezas_id">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="1" />
+          <End Role="Cerv_lupulos" Type="Self.Cerv_lupulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cervezas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_lupulos">
+              <PropertyRef Name="fk_cerveza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_lupulos_fk_lupulo-Lupulos_id">
+          <End Role="Lupulos" Type="Self.Lupulos" Multiplicity="1" />
+          <End Role="Cerv_lupulos" Type="Self.Cerv_lupulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lupulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_lupulos">
+              <PropertyRef Name="fk_lupulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_Maltas_fk_cerveza-Cervezas_id">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="1" />
+          <End Role="Cerv_Maltas" Type="Self.Cerv_Maltas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cervezas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_Maltas">
+              <PropertyRef Name="fk_cerveza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_Maltas_fk_malta-Maltas_id">
+          <End Role="Maltas" Type="Self.Maltas" Multiplicity="1" />
+          <End Role="Cerv_Maltas" Type="Self.Cerv_Maltas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maltas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cerv_Maltas">
+              <PropertyRef Name="fk_malta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cervezas_fk_levadura-Levaduras_id">
+          <End Role="Levaduras" Type="Self.Levaduras" Multiplicity="1" />
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levaduras">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cervezas">
+              <PropertyRef Name="fk_levadura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Detalles_pedidos_fk_cerveza-Cervezas_id">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="1" />
+          <End Role="Detalles_pedidos" Type="Self.Detalles_pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cervezas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Detalles_pedidos">
+              <PropertyRef Name="fk_cerveza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Detalles_pedidos_fk_pedido-Pedidos_id">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Detalles_pedidos" Type="Self.Detalles_pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Detalles_pedidos">
+              <PropertyRef Name="fk_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Flete_fk_botella-Botellas_id">
+          <End Role="Botellas" Type="Self.Botellas" Multiplicity="1" />
+          <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Botellas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Flete">
+              <PropertyRef Name="fk_botella" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gastos_fk_nombre-Gastos_nombres_id">
+          <End Role="Gastos_nombres" Type="Self.Gastos_nombres" Multiplicity="1" />
+          <End Role="Gastos" Type="Self.Gastos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gastos_nombres">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gastos">
+              <PropertyRef Name="fk_nombre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedidos_fk_cliente-Cliente_id">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="fk_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CerveceriaModelStoreContainer">
+          <EntitySet Name="Botellas" EntityType="Self.Botellas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cerv_lupulos" EntityType="Self.Cerv_lupulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cerv_Maltas" EntityType="Self.Cerv_Maltas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cervezas" EntityType="Self.Cervezas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalles_pedidos" EntityType="Self.Detalles_pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flete" EntityType="Self.Flete" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gastos" EntityType="Self.Gastos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gastos_nombres" EntityType="Self.Gastos_nombres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ins_varios" EntityType="Self.Ins_varios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Levaduras" EntityType="Self.Levaduras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lupulos" EntityType="Self.Lupulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maltas" EntityType="Self.Maltas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Palets" EntityType="Self.Palets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planchas" EntityType="Self.Planchas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cerv_ins_varios" EntityType="Self.Cerv_ins_varios" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Cerv_ins_varios].[fk_cerveza] AS [fk_cerveza], 
+    [Cerv_ins_varios].[fk_ins_varios] AS [fk_ins_varios]
+    FROM [dbo].[Cerv_ins_varios] AS [Cerv_ins_varios]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Botellas_fk_cant_palet-Palets_id" Association="Self.Botellas_fk_cant_palet-Palets_id">
+            <End Role="Palets" EntitySet="Palets" />
+            <End Role="Botellas" EntitySet="Botellas" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_ins_varios_fk_cerveza-Cervezas_id" Association="Self.Cerv_ins_varios_fk_cerveza-Cervezas_id">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Cerv_ins_varios" EntitySet="Cerv_ins_varios" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_ins_varios_fk_ins_varios-Ins_varios_id" Association="Self.Cerv_ins_varios_fk_ins_varios-Ins_varios_id">
+            <End Role="Ins_varios" EntitySet="Ins_varios" />
+            <End Role="Cerv_ins_varios" EntitySet="Cerv_ins_varios" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_lupulos_fk_cerveza-Cervezas_id" Association="Self.Cerv_lupulos_fk_cerveza-Cervezas_id">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Cerv_lupulos" EntitySet="Cerv_lupulos" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_lupulos_fk_lupulo-Lupulos_id" Association="Self.Cerv_lupulos_fk_lupulo-Lupulos_id">
+            <End Role="Lupulos" EntitySet="Lupulos" />
+            <End Role="Cerv_lupulos" EntitySet="Cerv_lupulos" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_Maltas_fk_cerveza-Cervezas_id" Association="Self.Cerv_Maltas_fk_cerveza-Cervezas_id">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Cerv_Maltas" EntitySet="Cerv_Maltas" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_Maltas_fk_malta-Maltas_id" Association="Self.Cerv_Maltas_fk_malta-Maltas_id">
+            <End Role="Maltas" EntitySet="Maltas" />
+            <End Role="Cerv_Maltas" EntitySet="Cerv_Maltas" />
+          </AssociationSet>
+          <AssociationSet Name="Cervezas_fk_levadura-Levaduras_id" Association="Self.Cervezas_fk_levadura-Levaduras_id">
+            <End Role="Levaduras" EntitySet="Levaduras" />
+            <End Role="Cervezas" EntitySet="Cervezas" />
+          </AssociationSet>
+          <AssociationSet Name="Detalles_pedidos_fk_cerveza-Cervezas_id" Association="Self.Detalles_pedidos_fk_cerveza-Cervezas_id">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Detalles_pedidos" EntitySet="Detalles_pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="Detalles_pedidos_fk_pedido-Pedidos_id" Association="Self.Detalles_pedidos_fk_pedido-Pedidos_id">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Detalles_pedidos" EntitySet="Detalles_pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="Flete_fk_botella-Botellas_id" Association="Self.Flete_fk_botella-Botellas_id">
+            <End Role="Botellas" EntitySet="Botellas" />
+            <End Role="Flete" EntitySet="Flete" />
+          </AssociationSet>
+          <AssociationSet Name="Gastos_fk_nombre-Gastos_nombres_id" Association="Self.Gastos_fk_nombre-Gastos_nombres_id">
+            <End Role="Gastos_nombres" EntitySet="Gastos_nombres" />
+            <End Role="Gastos" EntitySet="Gastos" />
+          </AssociationSet>
+          <AssociationSet Name="Pedidos_fk_cliente-Cliente_id" Association="Self.Pedidos_fk_cliente-Cliente_id">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CerveceriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Botellas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="pet" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo_fabrica" Type="Int32" Nullable="false" />
+          <Property Name="fk_cant_palet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Palets" Relationship="Self.Botellas_fk_cant_palet_Palets_id" FromRole="Botellas" ToRole="Palets" />
+          <NavigationProperty Name="Flete" Relationship="Self.Flete_fk_botella_Botellas_id" FromRole="Botellas" ToRole="Flete" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Cervezas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_levadura" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Levaduras" Relationship="Self.Cervezas_fk_levadura_Levaduras_id" FromRole="Cervezas" ToRole="Levaduras" />
+          <NavigationProperty Name="Detalles_pedidos" Relationship="Self.Detalles_pedidos_fk_cerveza_Cervezas_id" FromRole="Cervezas" ToRole="Detalles_pedidos" />
+          <NavigationProperty Name="Lupulos" Relationship="Self.Cerv_lupulos" FromRole="Cervezas" ToRole="Lupulos" />
+          <NavigationProperty Name="Maltas" Relationship="Self.Cerv_Maltas" FromRole="Cervezas" ToRole="Maltas" />
+          <NavigationProperty Name="Ins_varios" Relationship="Self.Cerv_ins_varios" FromRole="Cervezas" ToRole="Ins_varios" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nomyap" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.Pedidos_fk_cliente_Cliente_id" FromRole="Cliente" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Detalles_pedidos">
+          <Key>
+            <PropertyRef Name="fk_pedido" />
+            <PropertyRef Name="fk_cerveza" />
+          </Key>
+          <Property Name="fk_pedido" Type="Int32" Nullable="false" />
+          <Property Name="fk_cerveza" Type="Int32" Nullable="false" />
+          <Property Name="precio_unidad" Type="Double" Nullable="false" />
+          <Property Name="descuento" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cervezas" Relationship="Self.Detalles_pedidos_fk_cerveza_Cervezas_id" FromRole="Detalles_pedidos" ToRole="Cervezas" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.Detalles_pedidos_fk_pedido_Pedidos_id" FromRole="Detalles_pedidos" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Flete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo" Type="Double" Nullable="false" />
+          <Property Name="fk_botella" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Botellas" Relationship="Self.Flete_fk_botella_Botellas_id" FromRole="Flete" ToRole="Botellas" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Gastos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fecha_ini" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="esmensual" Type="Boolean" Nullable="false" />
+          <Property Name="monto" Type="Double" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fk_nombre" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gastos_nombres" Relationship="Self.Gastos_fk_nombre_Gastos_nombres_id" FromRole="Gastos" ToRole="Gastos_nombres" />
+          <Property Name="descrip" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Gastos_nombres">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Gastos" Relationship="Self.Gastos_fk_nombre_Gastos_nombres_id" FromRole="Gastos_nombres" ToRole="Gastos" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Ins_varios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="precio_kg" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cervezas" Relationship="Self.Cerv_ins_varios" FromRole="Ins_varios" ToRole="Cervezas" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Levaduras">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio_kg" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cervezas" Relationship="Self.Cervezas_fk_levadura_Levaduras_id" FromRole="Levaduras" ToRole="Cervezas" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Lupulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio_kg" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cervezas" Relationship="Self.Cerv_lupulos" FromRole="Lupulos" ToRole="Cervezas" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Maltas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio_kg" Type="Double" Nullable="false" />
+          <Property Name="precio_bolsa" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Cervezas" Relationship="Self.Cerv_Maltas" FromRole="Maltas" ToRole="Cervezas" />
+          <Property Name="descrip" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Palets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nro_botellas" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Botellas" Relationship="Self.Botellas_fk_cant_palet_Palets_id" FromRole="Palets" ToRole="Botellas" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fecha_pedido" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_envio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="forma_envio" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cargo_total" Type="Double" Nullable="false" />
+          <Property Name="direccion_dest" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.Pedidos_fk_cliente_Cliente_id" FromRole="Pedidos" ToRole="Cliente" />
+          <NavigationProperty Name="Detalles_pedidos" Relationship="Self.Detalles_pedidos_fk_pedido_Pedidos_id" FromRole="Pedidos" ToRole="Detalles_pedidos" />
+        </EntityType>
+        <EntityType Name="Planchas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="dimension" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Levadura">
+          <Key>
+            <PropertyRef Name="idLevadura" />
+          </Key>
+          <Property Name="idLevadura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_kg" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="moneda" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Lupulo">
+          <Key>
+            <PropertyRef Name="idLupulo" />
+          </Key>
+          <Property Name="idLupulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="precio_kg" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="moneda" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="Botellas_fk_cant_palet_Palets_id">
+          <End Role="Palets" Type="Self.Palets" Multiplicity="1" />
+          <End Role="Botellas" Type="Self.Botellas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palets">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Botellas">
+              <PropertyRef Name="fk_cant_palet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Flete_fk_botella_Botellas_id">
+          <End Role="Botellas" Type="Self.Botellas" Multiplicity="1" />
+          <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Botellas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Flete">
+              <PropertyRef Name="fk_botella" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cervezas_fk_levadura_Levaduras_id">
+          <End Role="Levaduras" Type="Self.Levaduras" Multiplicity="1" />
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Levaduras">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cervezas">
+              <PropertyRef Name="fk_levadura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Detalles_pedidos_fk_cerveza_Cervezas_id">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="1" />
+          <End Role="Detalles_pedidos" Type="Self.Detalles_pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cervezas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Detalles_pedidos">
+              <PropertyRef Name="fk_cerveza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pedidos_fk_cliente_Cliente_id">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="fk_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Detalles_pedidos_fk_pedido_Pedidos_id">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Detalles_pedidos" Type="Self.Detalles_pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Detalles_pedidos">
+              <PropertyRef Name="fk_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Gastos_fk_nombre_Gastos_nombres_id">
+          <End Role="Gastos_nombres" Type="Self.Gastos_nombres" Multiplicity="1" />
+          <End Role="Gastos" Type="Self.Gastos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gastos_nombres">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gastos">
+              <PropertyRef Name="fk_nombre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Cerv_lupulos">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="*" />
+          <End Role="Lupulos" Type="Self.Lupulos" Multiplicity="*" />
+        </Association>
+        <Association Name="Cerv_Maltas">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="*" />
+          <End Role="Maltas" Type="Self.Maltas" Multiplicity="*" />
+        </Association>
+        <Association Name="Cerv_ins_varios">
+          <End Role="Cervezas" Type="Self.Cervezas" Multiplicity="*" />
+          <End Role="Ins_varios" Type="Self.Ins_varios" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CerveceriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Botellas" EntityType="Self.Botellas" />
+          <EntitySet Name="Cervezas" EntityType="Self.Cervezas" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Detalles_pedidos" EntityType="Self.Detalles_pedidos" />
+          <EntitySet Name="Flete" EntityType="Self.Flete" />
+          <EntitySet Name="Gastos" EntityType="Self.Gastos" />
+          <EntitySet Name="Gastos_nombres" EntityType="Self.Gastos_nombres" />
+          <EntitySet Name="Ins_varios" EntityType="Self.Ins_varios" />
+          <EntitySet Name="Levaduras" EntityType="Self.Levaduras" />
+          <EntitySet Name="Lupulos" EntityType="Self.Lupulos" />
+          <EntitySet Name="Maltas" EntityType="Self.Maltas" />
+          <EntitySet Name="Palets" EntityType="Self.Palets" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="Planchas" EntityType="Self.Planchas" />
+          <EntitySet Name="Levadura" EntityType="Self.Levadura" />
+          <EntitySet Name="Lupulo" EntityType="Self.Lupulo" />
+          <AssociationSet Name="Botellas_fk_cant_palet_Palets_id" Association="Self.Botellas_fk_cant_palet_Palets_id">
+            <End Role="Palets" EntitySet="Palets" />
+            <End Role="Botellas" EntitySet="Botellas" />
+          </AssociationSet>
+          <AssociationSet Name="Flete_fk_botella_Botellas_id" Association="Self.Flete_fk_botella_Botellas_id">
+            <End Role="Botellas" EntitySet="Botellas" />
+            <End Role="Flete" EntitySet="Flete" />
+          </AssociationSet>
+          <AssociationSet Name="Cervezas_fk_levadura_Levaduras_id" Association="Self.Cervezas_fk_levadura_Levaduras_id">
+            <End Role="Levaduras" EntitySet="Levaduras" />
+            <End Role="Cervezas" EntitySet="Cervezas" />
+          </AssociationSet>
+          <AssociationSet Name="Detalles_pedidos_fk_cerveza_Cervezas_id" Association="Self.Detalles_pedidos_fk_cerveza_Cervezas_id">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Detalles_pedidos" EntitySet="Detalles_pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="Pedidos_fk_cliente_Cliente_id" Association="Self.Pedidos_fk_cliente_Cliente_id">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="Detalles_pedidos_fk_pedido_Pedidos_id" Association="Self.Detalles_pedidos_fk_pedido_Pedidos_id">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Detalles_pedidos" EntitySet="Detalles_pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="Gastos_fk_nombre_Gastos_nombres_id" Association="Self.Gastos_fk_nombre_Gastos_nombres_id">
+            <End Role="Gastos_nombres" EntitySet="Gastos_nombres" />
+            <End Role="Gastos" EntitySet="Gastos" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_lupulos" Association="Self.Cerv_lupulos">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Lupulos" EntitySet="Lupulos" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_Maltas" Association="Self.Cerv_Maltas">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Maltas" EntitySet="Maltas" />
+          </AssociationSet>
+          <AssociationSet Name="Cerv_ins_varios" Association="Self.Cerv_ins_varios">
+            <End Role="Cervezas" EntitySet="Cervezas" />
+            <End Role="Ins_varios" EntitySet="Ins_varios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CerveceriaModelStoreContainer" CdmEntityContainer="CerveceriaEntities">
+          <EntitySetMapping Name="Botellas">
+            <EntityTypeMapping TypeName="CerveceriaModel.Botellas">
+              <MappingFragment StoreEntitySet="Botellas">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pet" ColumnName="pet" />
+                <ScalarProperty Name="costo_fabrica" ColumnName="costo_fabrica" />
+                <ScalarProperty Name="fk_cant_palet" ColumnName="fk_cant_palet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cervezas">
+            <EntityTypeMapping TypeName="CerveceriaModel.Cervezas">
+              <MappingFragment StoreEntitySet="Cervezas">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fk_levadura" ColumnName="fk_levadura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="CerveceriaModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nomyap" ColumnName="nomyap" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detalles_pedidos">
+            <EntityTypeMapping TypeName="CerveceriaModel.Detalles_pedidos">
+              <MappingFragment StoreEntitySet="Detalles_pedidos">
+                <ScalarProperty Name="fk_pedido" ColumnName="fk_pedido" />
+                <ScalarProperty Name="fk_cerveza" ColumnName="fk_cerveza" />
+                <ScalarProperty Name="precio_unidad" ColumnName="precio_unidad" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flete">
+            <EntityTypeMapping TypeName="CerveceriaModel.Flete">
+              <MappingFragment StoreEntitySet="Flete">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="fk_botella" ColumnName="fk_botella" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gastos">
+            <EntityTypeMapping TypeName="CerveceriaModel.Gastos">
+              <MappingFragment StoreEntitySet="Gastos">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_ini" ColumnName="fecha_ini" />
+                <ScalarProperty Name="esmensual" ColumnName="esmensual" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="fk_nombre" ColumnName="fk_nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gastos_nombres">
+            <EntityTypeMapping TypeName="CerveceriaModel.Gastos_nombres">
+              <MappingFragment StoreEntitySet="Gastos_nombres">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ins_varios">
+            <EntityTypeMapping TypeName="CerveceriaModel.Ins_varios">
+              <MappingFragment StoreEntitySet="Ins_varios">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="precio_kg" ColumnName="precio_kg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Levaduras">
+            <EntityTypeMapping TypeName="CerveceriaModel.Levaduras">
+              <MappingFragment StoreEntitySet="Levaduras">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="precio_kg" ColumnName="precio_kg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lupulos">
+            <EntityTypeMapping TypeName="CerveceriaModel.Lupulos">
+              <MappingFragment StoreEntitySet="Lupulos">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="precio_kg" ColumnName="precio_kg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maltas">
+            <EntityTypeMapping TypeName="CerveceriaModel.Maltas">
+              <MappingFragment StoreEntitySet="Maltas">
+                <ScalarProperty Name="descrip" ColumnName="descrip" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="precio_kg" ColumnName="precio_kg" />
+                <ScalarProperty Name="precio_bolsa" ColumnName="precio_bolsa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Palets">
+            <EntityTypeMapping TypeName="CerveceriaModel.Palets">
+              <MappingFragment StoreEntitySet="Palets">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nro_botellas" ColumnName="nro_botellas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="CerveceriaModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_pedido" ColumnName="fecha_pedido" />
+                <ScalarProperty Name="fecha_envio" ColumnName="fecha_envio" />
+                <ScalarProperty Name="forma_envio" ColumnName="forma_envio" />
+                <ScalarProperty Name="cargo_total" ColumnName="cargo_total" />
+                <ScalarProperty Name="direccion_dest" ColumnName="direccion_dest" />
+                <ScalarProperty Name="fk_cliente" ColumnName="fk_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planchas">
+            <EntityTypeMapping TypeName="CerveceriaModel.Planchas">
+              <MappingFragment StoreEntitySet="Planchas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dimension" ColumnName="dimension" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Cerv_lupulos" TypeName="CerveceriaModel.Cerv_lupulos" StoreEntitySet="Cerv_lupulos">
+            <EndProperty Name="Cervezas">
+              <ScalarProperty Name="id" ColumnName="fk_cerveza" />
+            </EndProperty>
+            <EndProperty Name="Lupulos">
+              <ScalarProperty Name="id" ColumnName="fk_lupulo" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Cerv_Maltas" TypeName="CerveceriaModel.Cerv_Maltas" StoreEntitySet="Cerv_Maltas">
+            <EndProperty Name="Cervezas">
+              <ScalarProperty Name="id" ColumnName="fk_cerveza" />
+            </EndProperty>
+            <EndProperty Name="Maltas">
+              <ScalarProperty Name="id" ColumnName="fk_malta" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Cerv_ins_varios" TypeName="CerveceriaModel.Cerv_ins_varios" StoreEntitySet="Cerv_ins_varios">
+            <EndProperty Name="Cervezas">
+              <ScalarProperty Name="id" ColumnName="fk_cerveza" />
+            </EndProperty>
+            <EndProperty Name="Ins_varios">
+              <ScalarProperty Name="id" ColumnName="fk_ins_varios" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

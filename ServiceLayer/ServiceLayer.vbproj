@@ -80,6 +80,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Servicios\CervezasServicio.vb" />
+    <Compile Include="Servicios\GastosService.vb" />
     <Compile Include="tests2.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -101,8 +103,12 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Servicios\" />
+    <ProjectReference Include="..\DataLayer\DataLayer.vbproj">
+      <Project>{64E7437A-3625-4F94-8B40-7319D46B301D}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

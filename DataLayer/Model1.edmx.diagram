@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c56c05bf0854426a34768aab2723cbf" Name="Diagram1">
+        <EntityTypeShape EntityType="CerveceriaModel.Botellas" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Cervezas" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Cliente" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Detalles_pedidos" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Flete" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Gastos" Width="1.5" PointX="10" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Gastos_nombres" Width="1.5" PointX="7.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Ins_varios" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Levaduras" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Lupulos" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Maltas" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Palets" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Pedidos" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Planchas" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Levadura" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CerveceriaModel.Lupulo" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="CerveceriaModel.Botellas_fk_cant_palet_Palets_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Flete_fk_botella_Botellas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Cervezas_fk_levadura_Levaduras_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Detalles_pedidos_fk_cerveza_Cervezas_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Pedidos_fk_cliente_Cliente_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Detalles_pedidos_fk_pedido_Pedidos_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Gastos_fk_nombre_Gastos_nombres_id" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Cerv_lupulos" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Cerv_Maltas" ManuallyRouted="false" />
+        <AssociationConnector Association="CerveceriaModel.Cerv_ins_varios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

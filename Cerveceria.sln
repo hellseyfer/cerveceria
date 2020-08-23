@@ -4,10 +4,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DataLayer", "DataLayer\DataLayer.vbproj", "{64E7437A-3625-4F94-8B40-7319D46B301D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A6EE152-5005-4C9A-8759-C5FFED32FA59} = {1A6EE152-5005-4C9A-8759-C5FFED32FA59}
+	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PresentationLayer", "PresentationLayer\PresentationLayer.vbproj", "{2E4F3C50-281D-434E-9221-691D76241321}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A6EE152-5005-4C9A-8759-C5FFED32FA59} = {1A6EE152-5005-4C9A-8759-C5FFED32FA59}
+		{1F213B56-F852-489F-A4A7-DB06667C81DD} = {1F213B56-F852-489F-A4A7-DB06667C81DD}
+		{64E7437A-3625-4F94-8B40-7319D46B301D} = {64E7437A-3625-4F94-8B40-7319D46B301D}
+	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ServiceLayer", "ServiceLayer\ServiceLayer.vbproj", "{1F213B56-F852-489F-A4A7-DB06667C81DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1A6EE152-5005-4C9A-8759-C5FFED32FA59} = {1A6EE152-5005-4C9A-8759-C5FFED32FA59}
+		{64E7437A-3625-4F94-8B40-7319D46B301D} = {64E7437A-3625-4F94-8B40-7319D46B301D}
+	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CommonLayer", "CommonLayer\CommonLayer.vbproj", "{1A6EE152-5005-4C9A-8759-C5FFED32FA59}"
 EndProject
